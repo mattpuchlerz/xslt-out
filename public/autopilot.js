@@ -6,6 +6,7 @@ var Autopilot = new Class({
   form: null,
   formTimer: null,
   label: null,
+  lastRequestTime: null,
   
   options: {
     classes: {
@@ -34,13 +35,16 @@ var Autopilot = new Class({
   },
   
   hideLoader: function() {
-    this.form.removeClass(this.options.classes.loading);
+    // Make sure that the loader is shown for at least 500 milliseconds
+    var delay = 500 - ($time() - this.lastRequestTime);
+    if (delay < 0) delay = 0;
+    this.form.removeClass.delay(delay, this.form, this.options.classes.loading);
   },
   
   setupForm: function(form) {
     this.form = $(form);
     var newRequestInstance = new Request.HTML({ 
-      'onComplete': this.hideLoader.bind(this) ,
+      'onComplete': this.hideLoader.bind(this),
       'onRequest':  this.showLoader.bind(this),
       'update':     this.options.update,
       'url':        this.form.get('action')
@@ -49,6 +53,7 @@ var Autopilot = new Class({
   },
   
   showLoader: function() {
+    this.lastRequestTime = $time();
     this.form.addClass(this.options.classes.loading);
   },
   
