@@ -75,9 +75,9 @@ __END__
   <head>
     <title>XSLT Out</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" type="text/css" href="/styles.css" media="screen" />
-    <script type="text/javascript" src="/mootools-1.2.3-core-yc.js"></script>
-    <script type="text/javascript" src="/autopilot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css" media="screen" />
+    <script type="text/javascript" src="/javascript/mootools-1.2.3-core-yc.js"></script>
+    <script type="text/javascript" src="/javascript/autopilot.js"></script>
     <script type="text/javascript">
       window.addEvent('domready', function() {
         new Autopilot( $('header').getElement('form'), { update: 'content' } );
