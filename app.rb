@@ -33,7 +33,7 @@ post '/' do
     end
   end
   
-  erb :index
+  erb :out
 end
 
 
@@ -52,10 +52,22 @@ __END__
   	<title>XSLT Out</title>
   	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   	<link rel="stylesheet" type="text/css" href="/styles.css" media="screen" />
+  	<script type="text/javascript" src="/autopilot.js"></script>
   </head>
   <body>
     <h1>XSLT Out</h1>
-    <%= yield %>
+    <form action="/" method="post">
+      <% %w[ xml xslt ].each do |field| %>
+      <dl>
+        <dt><label for="<%= field %>"><%= field.upcase %></label></dt>
+        <dd><input type="text" name="<%= field %>" value="<%= params[field] || 'http://' %>" /></dd>
+      </dl>
+      <% end %>
+      <p><input type="submit" value="Get the Output!" /></p>
+    </form>
+    <div id="content">
+      <%= yield %>
+    </div>
   </body>
 </html>
 
@@ -63,15 +75,12 @@ __END__
 
 @@ index
 
-<form action="/" method="post">
-  <% %w[ xml xslt ].each do |field| %>
-  <dl>
-    <dt><label for="<%= field %>"><%= field.upcase %></label></dt>
-    <dd><input type="text" name="<%= field %>" value="<%= params[field] || 'http://' %>" /></dd>
-  </dl>
-  <% end %>
-  <p><input type="submit" value="Get the Output!" /></p>
-</form>
+<p>Just fill in the <em>xml</em> and <em>xslt</em> fields above, and <strong>get the output!</strong></p>
+<p>If you&rsquo;re feeling really saucy, you can turn on <em>autopilot</em>.</p>
+
+
+
+@@ out
 
 <% unless @errors.empty? %>
 <div id="errors">

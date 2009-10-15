@@ -9,6 +9,10 @@ body {
   font: 16px/24px "Lucida Grande", "Trebuchet MS", sans-serif;
 }
 
+p {
+  margin-bottom: 12px;
+}
+
 h1 {
   color: #333;
   font-size: 24px;
@@ -51,7 +55,9 @@ form dl {
 }
 
 form dl dt {
-  margin-right: 3px;
+  font: italic 14px/24px Georgia, serif;
+  margin-right: 4px;
+  text-transform: lowercase;
 }
 
 form input[type="text"],
@@ -86,18 +92,19 @@ form input[type="submit"]:active {
   border-top-color: #567;
 }
 
+#content {
+  margin-top: 48px;
+  padding: 48px;
+  position: relative;
+}
+
 #errors {
   background: #900;
   border-radius: 0 12px 12px 0;
   -moz-border-radius: 0 12px 12px 0;
   -webkit-border-radius: 0 12px 12px 0;
   color: #fff;
+  left: 0;
   padding: 24px;
   position: absolute;
-  top: 96px;
-}
-
-#out {
-  margin-top: 48px;
-  padding: 48px;
 }
