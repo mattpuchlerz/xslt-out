@@ -9,7 +9,7 @@ var Autopilot = new Class({
   
   options: {
     classes: {
-      loading: 'loading'
+      loading: 'autopilot-loading'
     },
     delay: 2000,
     update: null
