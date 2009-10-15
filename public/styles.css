@@ -1,0 +1,103 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #eee;
+  color: black;
+  font: 16px/24px "Lucida Grande", "Trebuchet MS", sans-serif;
+}
+
+h1 {
+  color: #333;
+  font-size: 24px;
+  right: 24px;
+  position: fixed;
+  text-shadow: 0 1px 0 #555;
+  top: 12px;
+  z-index: 1;
+}
+
+h2 {
+  font: 24px/24px Georgia, serif;
+  font-style: italic;
+  font-weight: normal;
+  margin-bottom: 12px;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+form {
+  background: rgba(0, 0, 0, .75);
+  border-bottom: 1px solid #fff;
+  color: #eee;
+  left: 0;
+  padding: 12px;
+  padding-left: 24px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+form * {
+  display: inline;
+}
+
+form dl {
+  margin-right: 24px;
+}
+
+form dl dt {
+  margin-right: 3px;
+}
+
+form input[type="text"],
+form input[type="submit"] {
+  border: 0;
+  border-radius: 6px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  font-size: 12px;
+  padding: 6px;
+}
+
+form input[type="text"] {
+  line-height: 1;
+  vertical-align: top;
+  width: 240px;
+}
+
+form input[type="submit"] {
+  background: #9bc;
+  border: 1px solid #bcd;
+  border-bottom-color: #789;
+  border-top-color: #def;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 4px 12px;
+}
+
+form input[type="submit"]:active {
+  background: #8ab;
+  border-bottom-color: #bcd;
+  border-top-color: #567;
+}
+
+#errors {
+  background: #900;
+  border-radius: 0 12px 12px 0;
+  -moz-border-radius: 0 12px 12px 0;
+  -webkit-border-radius: 0 12px 12px 0;
+  color: #fff;
+  padding: 24px;
+  position: absolute;
+  top: 96px;
+}
+
+#out {
+  margin-top: 48px;
+  padding: 48px;
+}

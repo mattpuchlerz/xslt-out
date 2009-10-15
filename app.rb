@@ -22,11 +22,15 @@ post '/' do
   @errors << 'Could not read the XSLT file.' if not @xslt
 
   if @errors.empty?
-    xslt = XML::XSLT.new
-    xslt.xml = @xml
-    xslt.xsl = @xslt
-    html = HTMLEntities.new
-    @out = html.encode xslt.serve#, :named
+    begin
+      xslt = XML::XSLT.new
+      xslt.xml = @xml
+      xslt.xsl = @xslt
+      html = HTMLEntities.new
+      @out = html.encode xslt.serve#, :named
+    rescue
+      @errors << 'Error parsing the XML or XSLT file.'
+    end
   end
   
   erb :index
@@ -47,6 +51,7 @@ __END__
   <head>
   	<title>XSLT Out</title>
   	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  	<link rel="stylesheet" type="text/css" href="/styles.css" media="screen" />
   </head>
   <body>
     <h1>XSLT Out</h1>
@@ -70,7 +75,7 @@ __END__
 
 <% unless @errors.empty? %>
 <div id="errors">
-  <h2>Errors!</h2>
+  <h2>Uh oh!</h2>
   <ul>
     <% @errors.each do |error| %>
     <li><%= error %></li>
