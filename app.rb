@@ -55,16 +55,18 @@ __END__
   	<script type="text/javascript" src="/autopilot.js"></script>
   </head>
   <body>
-    <h1>XSLT Out</h1>
-    <form action="/" method="post">
-      <% %w[ xml xslt ].each do |field| %>
-      <dl>
-        <dt><label for="<%= field %>"><%= field.upcase %></label></dt>
-        <dd><input type="text" name="<%= field %>" value="<%= params[field] || 'http://' %>" /></dd>
-      </dl>
-      <% end %>
-      <p><input type="submit" value="Get the Output!" /></p>
-    </form>
+    <div id="header">
+      <h1>XSLT Out</h1>
+      <form action="/" method="post">
+        <% %w[ xml xslt ].each do |field| %>
+        <dl>
+          <dt><label for="<%= field %>"><%= field.upcase %></label></dt>
+          <dd><input type="text" name="<%= field %>" value="<%= params[field] || 'http://' %>" /></dd>
+        </dl>
+        <% end %>
+        <p><input type="submit" value="Get the Output!" /></p>
+      </form>
+    </div>
     <div id="content">
       <%= yield %>
     </div>
