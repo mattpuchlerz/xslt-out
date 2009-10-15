@@ -4,35 +4,59 @@ require 'open-uri'
 require 'xml/xslt'
 require 'htmlentities'
 
-use_in_file_templates!
+class XSLTOut
+  
+  attr_reader :errors, :output
+  
+  def initialize attributes
+    @errors = []
+    read_xml  attributes['xml']
+    read_xslt attributes['xslt']
+    parse
+  end
+  
+  private 
+  
+  def parse
+    return if not @xml or not @xslt or not @errors.empty?
 
-before do
-  @errors = []
+    begin
+      xslt = XML::XSLT.new
+      xslt.xml = @xml
+      xslt.xsl = @xslt
+      html = HTMLEntities.new
+      @output = html.encode xslt.serve#, :named
+    rescue
+      @errors << case $!
+        when /XML/; 'Error parsing the XML file.'
+        when /XSL/; 'Error parsing the XSLT file.'
+        else $!
+      end
+    end
+  end
+  
+  def read_xml file
+    open(file) { |f| @xml = f.read } rescue @errors << 'URI given for the XML was invalid.'
+    @errors << 'Could not read the XML file.' unless @xml
+  end
+  
+  def read_xslt file
+    open(file) { |f| @xslt = f.read } rescue @errors << 'URI given for the XSLT was invalid.'
+    @errors << 'Could not read the XSLT file.' unless @xslt
+  end
+  
 end
+
+
+
+use_in_file_templates!
 
 get '/' do
   erb :index
 end
 
 post '/' do
-  open(params['xml'])  { |file| @xml  = file.read } rescue @errors << 'URI given for the XML was invalid.'
-  open(params['xslt']) { |file| @xslt = file.read } rescue @errors << 'URI given for the XSLT was invalid.'
-  
-  @errors << 'Could not read the XML file.'  if not @xml
-  @errors << 'Could not read the XSLT file.' if not @xslt
-
-  if @errors.empty?
-    begin
-      xslt = XML::XSLT.new
-      xslt.xml = @xml
-      xslt.xsl = @xslt
-      html = HTMLEntities.new
-      @out = html.encode xslt.serve#, :named
-    rescue
-      @errors << 'Error parsing the XML or XSLT file.'
-    end
-  end
-  
+  @xsltout = XSLTOut.new params
   erb :out, :layout => !request.xhr?
 end
 
@@ -56,7 +80,7 @@ __END__
     <script type="text/javascript" src="/autopilot.js"></script>
     <script type="text/javascript">
       window.addEvent('domready', function() {
-        window.ap = new Autopilot( $('header').getElement('form'), { update: 'content' } );
+        new Autopilot( $('header').getElement('form'), { update: 'content' } );
       });
     </script>
   </head>
@@ -90,18 +114,18 @@ __END__
 
 @@ out
 
-<% unless @errors.empty? %>
+<% unless @xsltout.errors.empty? %>
 <div id="errors">
   <h2>Uh oh!</h2>
   <ul>
-    <% @errors.each do |error| %>
+    <% @xsltout.errors.each do |error| %>
     <li><%= error %></li>
     <% end %>
   </ul>
 </div>
 <% end %>
 
-<% if @out %>
-<pre id="out"><code><%= @out %></code></pre>
+<% if @xsltout.output %>
+<pre id="out"><code><%= @xsltout.output %></code></pre>
 <% end %>
 
