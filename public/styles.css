@@ -24,6 +24,10 @@ ul, ol {
   list-style: none;
 }
 
+input {
+  font-size: 1em;
+}
+
 #header {
   background: rgba(0, 0, 0, .75);
   border-bottom: 1px solid #fff;
@@ -47,6 +51,7 @@ ul, ol {
 }
 
 #header form {
+  font-size: 12px;
   position: relative;
   z-index: 2;
 }
@@ -55,7 +60,8 @@ ul, ol {
   display: inline;
 }
 
-#header form dl {
+#header form dl,
+#header form p {
   margin-right: 24px;
 }
 
@@ -71,7 +77,6 @@ ul, ol {
   border-radius: 6px;
   -moz-border-radius: 6px;
   -webkit-border-radius: 6px;
-  font-size: 12px;
   padding: 6px;
 }
 
@@ -91,7 +96,8 @@ ul, ol {
   padding: 4px 12px;
 }
 
-#header form input[type="submit"]:active {
+#header form input[type="submit"]:active,
+#header form.loading input[type="submit"] {
   background: #8ab;
   border-bottom-color: #bcd;
   border-top-color: #567;
