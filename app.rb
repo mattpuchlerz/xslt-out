@@ -33,7 +33,7 @@ post '/' do
     end
   end
   
-  erb :out
+  erb :out, :layout => !request.xhr?
 end
 
 
@@ -54,6 +54,11 @@ __END__
     <link rel="stylesheet" type="text/css" href="/styles.css" media="screen" />
     <script type="text/javascript" src="/mootools-1.2.3-core-yc.js"></script>
     <script type="text/javascript" src="/autopilot.js"></script>
+    <script type="text/javascript">
+      window.addEvent('domready', function() {
+        window.ap = new Autopilot( $('header').getElement('form'), { update: 'content' } );
+      });
+    </script>
   </head>
   <body>
     <div id="header">
