@@ -49,10 +49,11 @@ __END__
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-  	<title>XSLT Out</title>
-  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  	<link rel="stylesheet" type="text/css" href="/styles.css" media="screen" />
-  	<script type="text/javascript" src="/autopilot.js"></script>
+    <title>XSLT Out</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="/styles.css" media="screen" />
+    <script type="text/javascript" src="/mootools-1.2.3-core-yc.js"></script>
+    <script type="text/javascript" src="/autopilot.js"></script>
   </head>
   <body>
     <div id="header">
